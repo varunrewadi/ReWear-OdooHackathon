@@ -8,6 +8,7 @@ import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./routes/user.route.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,7 +26,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
-// app.use("/api/product", productRoutes);
+app.use("/api/user", userRoutes);
 // app.use("/api/cart", cartRoutes);
 // app.use("/api/coupon", couponRoutes);
 // app.use("/api/order", orderRoutes);
