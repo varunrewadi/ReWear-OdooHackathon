@@ -7,43 +7,49 @@ const Landing = () => {
   const [featuredItems, setFeaturedItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Categories with images
+  // Categories with images - matching existing data
   const categories = [
     {
+      id: "Clothing",
+      name: "Clothing",
+      image:
+        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      count: 1,
+    },
+    {
+      id: "Outerwear",
+      name: "Outerwear",
+      image:
+        "https://images.unsplash.com/photo-1544022613-e87ca75a784a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      count: 1,
+    },
+    {
+      id: "Tops",
       name: "Tops",
       image:
         "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      count: 234,
+      count: 45,
     },
     {
+      id: "Bottoms",
+      name: "Bottoms",
+      image:
+        "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      count: 32,
+    },
+    {
+      id: "Dresses",
       name: "Dresses",
       image:
         "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      count: 156,
+      count: 28,
     },
     {
-      name: "Jackets",
-      image:
-        "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      count: 89,
-    },
-    {
-      name: "Pants",
-      image:
-        "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      count: 178,
-    },
-    {
+      id: "Shoes",
       name: "Shoes",
       image:
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      count: 145,
-    },
-    {
-      name: "Accessories",
-      image:
-        "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      count: 267,
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      count: 19,
     },
   ];
 
@@ -195,10 +201,7 @@ const Landing = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {categories.map((category) => (
-              <Link
-                key={category.name}
-                to={`/categories/${category.name.toLowerCase()}`}
-              >
+              <Link key={category.id} to={`/browse?category=${category.id}`}>
                 <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow cursor-pointer p-4 text-center group">
                   <img
                     src={category.image}

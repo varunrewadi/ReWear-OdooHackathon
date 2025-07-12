@@ -46,7 +46,9 @@ const Register = () => {
     }
 
     try {
-      await register(formData);
+      // Remove confirmPassword and phone from the data sent to backend
+      const { confirmPassword, phone, ...registrationData } = formData;
+      await register(registrationData);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");

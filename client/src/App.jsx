@@ -13,6 +13,8 @@ import Dashboard from "./pages/Dashboard";
 import AddItem from "./pages/AddItem";
 import ItemDetail from "./pages/ItemDetail";
 import AdminPanel from "./pages/AdminPanel";
+import Browse from "./pages/Browse";
+import Categories from "./pages/Categories";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/browse" element={<Browse />} />
+              <Route path="/categories" element={<Categories />} />
               <Route path="/item/:id" element={<ItemDetail />} />
 
               {/* Protected Routes */}
