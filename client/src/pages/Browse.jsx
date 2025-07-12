@@ -133,6 +133,24 @@ const Browse = () => {
       },
       createdAt: "2024-01-10T16:45:00Z",
     },
+    {
+      _id: "7",
+      title: "Retro Leather Boots",
+      description: "Sturdy and stylish leather boots with a vintage flair",
+      images: [
+        "https://images.unsplash.com/photo-1600180758890-2ab8a8a7f623?w=400",
+      ],
+      category: "Footwear",
+      type: "Boots",
+      condition: "Very Good",
+      size: "9",
+      price: 60,
+      owner: {
+        firstName: "Varun",
+        lastName: "Rewadi",
+      },
+      createdAt: "2024-02-20T14:45:00Z",
+    },
   ];
 
   const categories = [
