@@ -1,4 +1,9 @@
 import Item from "../model/items.model.js";
+import { uploadImagesToCloudinary } from '../utils/image.to.url.js'
+
+import cloudinary from "../config/cloudinary.js";
+
+
 
 export const getProfile = (req, res) => {
     const userData = req.user;
@@ -8,9 +13,10 @@ export const getProfile = (req, res) => {
     res.status(200).json({ profile: userData });
 };
 
+
 export const addItem = async (req, res) => {
     try {
-        const user = req.user; // assuming populated user from auth middleware
+        const user = req.user; // populated by protectRoute
 
         if (!user) {
             return res.status(401).json({ message: "Unauthorized: User not found in request" });
@@ -19,7 +25,6 @@ export const addItem = async (req, res) => {
         const {
             title,
             description,
-            images,
             category,
             type,
             size,
@@ -27,21 +32,47 @@ export const addItem = async (req, res) => {
             tags
         } = req.body;
 
-        // Validate required fields
         if (!title || !category || !type || !condition) {
             return res.status(400).json({ message: "Title, category, type, and condition are required" });
+        }
+
+        const uploadedImageUrls = [];
+
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                try {
+                    const uploadRes = await cloudinary.uploader.upload_stream(
+                        {
+                            folder: 'items',
+                        },
+                        (error, result) => {
+                            if (error) {
+                                console.error('Cloudinary upload error:', error);
+                            } else {
+                                uploadedImageUrls.push(result.secure_url);
+                            }
+                        }
+                    );
+
+                    // Pipe file buffer into the upload stream
+                    uploadRes.end(file.buffer);
+
+                } catch (uploadErr) {
+                    console.error(`❌ Failed to upload image:`, uploadErr);
+                }
+            }
         }
 
         const newItem = new Item({
             title,
             description: description || '',
-            images: images || [],
+            images: uploadedImageUrls,
             category,
             type,
             size: size || '',
             condition,
-            tags: tags || [],
-            ownerId: user._id, // linking item to signed-in user
+            tags: tags ? JSON.parse(tags) : [],
+            ownerId: user._id
         });
 
         await newItem.save();
